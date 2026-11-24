@@ -1,5 +1,5 @@
-const CACHE='luyentuvung-hsk1to6-30e684d07644';
-const CORE=["./", "./index.html", "./pwa.js", "./manifest.webmanifest", "./icons/app-192.png", "./icons/app-512.png", "./icons/maskable-512.png", "./icons/apple-touch-icon.png", "./icons/favicon-32.png", "./attribution.json", "./social-preview-v3.png", "./fonts/LXGWWenKai-Regular-3ef218e95b.woff2", "./fonts/LXGWWenKai-Medium-d925774997.woff2"];
+const CACHE='luyentuvung-hsk1to6-035237ad387e';
+const CORE=["./", "./index.html", "./pwa.js", "./manifest.webmanifest", "./icons/app-192.png", "./icons/app-512.png", "./icons/maskable-512.png", "./icons/apple-touch-icon.png", "./icons/favicon-32.png", "./attribution.json", "./social-preview-v3.png", "./fonts/WenKai-Regular-ui-cc47a90dd5.woff2", "./fonts/WenKai-Regular-course-eec97761b0.woff2", "./fonts/WenKai-Regular-extended-0bc500393d.woff2", "./fonts/WenKai-Medium-ui-a20fe7024e.woff2", "./fonts/WenKai-Medium-course-7e8bf36f47.woff2", "./fonts/WenKai-Medium-extended-cd7ca6e14f.woff2"];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
 });
