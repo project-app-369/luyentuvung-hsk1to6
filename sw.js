@@ -1,5 +1,5 @@
-const CACHE='luyentuvung-hsk1to6-4527cf2b636a';
-const CORE=["./", "./index.html", "./pwa.js", "./manifest.webmanifest", "./icons/app-192.png", "./icons/app-512.png", "./icons/maskable-512.png", "./icons/apple-touch-icon.png", "./icons/favicon-32.png", "./attribution.json", "./social-preview-v3.png", "./fonts/NotoSans-VF-3a0889ad67.woff2", "./fonts/NotoSansSC-VF-baa7df4ed1.woff2", "./fonts/NotoSerif-VF-826e9fdf87.woff2"];
+const CACHE='luyentuvung-hsk1to6-30e684d07644';
+const CORE=["./", "./index.html", "./pwa.js", "./manifest.webmanifest", "./icons/app-192.png", "./icons/app-512.png", "./icons/maskable-512.png", "./icons/apple-touch-icon.png", "./icons/favicon-32.png", "./attribution.json", "./social-preview-v3.png", "./fonts/LXGWWenKai-Regular-3ef218e95b.woff2", "./fonts/LXGWWenKai-Medium-d925774997.woff2"];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
 });
