@@ -1,0 +1,59 @@
+/* Full-width shell and a consistent spacing scale. */
+:root{--page-space:16px;--card-space:18px;--section-gap:18px}
+.app,main{max-width:none;width:100%}main{margin:0;padding:24px var(--page-space) 105px}
+.top{margin-bottom:20px;min-height:88px}.dashboard-intro{margin:0 0 20px;font-size:16px;max-width:75ch}
+.dashboard-grid{gap:var(--section-gap);align-items:stretch;grid-template-columns:minmax(0,1fr)}
+.dashboard-card{padding:var(--card-space);min-width:0;border-radius:16px}
+.dashboard-grid .goal-card,.dashboard-grid .badges-card{grid-row:auto;grid-column:auto}
+.dashboard-card h2{margin-bottom:10px}.goal-card{display:flex;flex-direction:column}
+.goal-card .bar{margin:18px 0 12px}.goal-card #dash-start{margin-top:auto;padding-top:12px;padding-bottom:12px}
+.goal-card .tiny.muted{margin-bottom:16px}.goal-heading{margin-bottom:12px}
+.dashboard-card:has(#dash-due){display:flex;flex-direction:column}
+#dash-due{margin-top:auto}.dash-metrics{gap:12px;margin:18px 0}.metric{padding:16px}
+.weekstrip{margin-top:20px;margin-bottom:8px}.activity-note{line-height:1.65}
+.badges{gap:12px;margin-top:16px;grid-template-columns:repeat(2,minmax(0,1fr));flex:1}
+.badge{padding:15px;min-height:116px;font-size:14px;line-height:1.6}.badge p{margin-top:5px}
+.dashboard-section-title{margin:28px 0 14px;align-items:baseline}.dashboard-section-title h2{font-size:26px}
+.dash-levels{gap:12px;margin-top:0}.dash-levels button{padding:18px;min-width:0}
+.dash-levels small{font-size:14px}.dash-levels .bar{margin:14px 0 10px}
+.quote-card{margin-top:22px;padding:22px}.settings-actions{gap:12px;margin:22px 0}
+.library-grid{gap:var(--section-gap)}.library-card{padding:22px;min-width:0}
+.stats{gap:12px}.stat{padding:18px}.workspace{gap:var(--section-gap)}
+.toolbar{gap:12px;margin-bottom:18px}.toolbar input{flex-basis:220px}
+.detailtop,.body{padding:22px}.tabs{gap:6px;padding:10px 16px}.tabs button{padding:9px 13px}
+#hskwritedetails{padding:22px}.example{padding-top:18px;padding-bottom:18px}.example p{line-height:1.8}
+.source{max-width:none}.settings-row{max-width:1000px}.source>p{max-width:90ch}
+.foot{margin-top:28px;gap:14px}
+@media(min-width:700px){
+ :root{--page-space:24px;--card-space:24px;--section-gap:20px}
+ .dashboard-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dashboard-grid .badges-card{grid-column:1/-1}.badges{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .dash-levels{grid-template-columns:repeat(3,minmax(0,1fr))}.top{min-height:96px}
+}
+@media(min-width:1000px){
+ main{padding:28px var(--page-space) 40px}.workspace,#supplementview .workspace{grid-template-columns:280px minmax(0,1fr)}
+ .library-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.wordlist{max-height:calc(100dvh - 230px)}
+ .wordrow .vn{max-width:180px}.sidebar{scrollbar-width:thin}
+ #detail>.detailtop{display:grid;grid-template-columns:fit-content(35%) minmax(0,1fr);column-gap:24px;align-items:center}
+ #detail .detailmeta{grid-column:1/-1;margin-bottom:16px}
+ #detail .wordtitle{grid-column:1;grid-row:2/5;min-width:90px;max-width:100%;font-size:68px;line-height:1.35;margin:0}
+ #detail .detailtop>.pinyin{grid-column:2;margin:0}
+ #detail .detailtop>.meaning{grid-column:2;margin:4px 0 12px}
+ #detail .detailtop>.actions{grid-column:2;margin:0;gap:8px}
+}
+@media(min-width:1250px){
+ :root{--page-space:28px;--card-space:26px;--section-gap:22px}
+ .dashboard-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .dashboard-grid .badges-card{grid-column:auto}.badges{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dash-levels{grid-template-columns:repeat(6,minmax(0,1fr))}.dashboard-card{min-height:380px}
+}
+@media(min-width:1600px){
+ .workspace,#supplementview .workspace{grid-template-columns:310px minmax(0,1fr)}
+ .wordrow .vn{max-width:205px}
+ #detail{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:start}
+ #detail>.detailtop,#detail>.tabs,#detail>.pager{grid-column:1/-1}
+ #hskwritedetails{grid-column:1;border-right:1px solid var(--line);border-bottom:0}
+ #tabbody{grid-column:2;min-width:0}#detail:has([data-tab=write].active) #hskwritedetails{grid-column:1/-1;border:0}
+ #detail:has([data-tab=write].active) #tabbody{display:none}
+}
+@media(max-width:399px){:root{--page-space:12px;--card-space:16px;--section-gap:14px}.badge{padding:12px}.detailtop,.body,#hskwritedetails{padding:18px}.dashboard-section-title h2{font-size:23px}}
