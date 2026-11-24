@@ -1,0 +1,1 @@
+Web edition prepared 2026-11-24 for luyentuvung-hsk1to6: AR PL UKai CN face extracted, split by Unicode range, hinting removed, converted to WOFF2. Glyph outlines are unchanged. Licensed under ARPHIC PUBLIC LICENSE; modifications freely available in the public application repository.
