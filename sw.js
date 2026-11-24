@@ -1,1 +1,35 @@
-const CACHE='luyentuvung-hsk1to6-d885645b3ae9';const CORE=['./','./index.html','./pwa.js','./manifest.webmanifest','./icons/app-192.png','./icons/app-512.png','./icons/maskable-512.png','./icons/apple-touch-icon.png','./icons/favicon-32.png','./attribution.json','./social-preview-v3.png'];self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('luyentuvung-hsk1to6-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});self.addEventListener('fetch',e=>{if(e.request.method!=='GET'||new URL(e.request.url).origin!==location.origin)return;e.respondWith(caches.match(e.request).then(cached=>cached||fetch(e.request)))});
+const CACHE='luyentuvung-hsk1to6-4527cf2b636a';
+const CORE=["./", "./index.html", "./pwa.js", "./manifest.webmanifest", "./icons/app-192.png", "./icons/app-512.png", "./icons/maskable-512.png", "./icons/apple-touch-icon.png", "./icons/favicon-32.png", "./attribution.json", "./social-preview-v3.png", "./fonts/NotoSans-VF-3a0889ad67.woff2", "./fonts/NotoSansSC-VF-baa7df4ed1.woff2", "./fonts/NotoSerif-VF-826e9fdf87.woff2"];
+self.addEventListener('install',event=>{
+  event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
+});
+self.addEventListener('activate',event=>{
+  event.waitUntil((async()=>{
+    const keys=await caches.keys();
+    const replacing=keys.some(key=>key.startsWith('luyentuvung-hsk1to6-')&&key!==CACHE);
+    await Promise.all(keys.filter(key=>key.startsWith('luyentuvung-hsk1to6-')&&key!==CACHE).map(key=>caches.delete(key)));
+    await self.clients.claim();
+    // Navigate once after an upgrade, including legacy clients whose cached
+    // pwa.js did not yet contain an update listener. localStorage is retained.
+    if(replacing)for(const client of await self.clients.matchAll({type:'window'})){
+      // Do not await navigation inside activation: its fetch must wait for
+      // this activation event to finish, otherwise the upgrade deadlocks.
+      if(client.url.startsWith(self.registration.scope))client.navigate(client.url).catch(()=>{});
+    }
+  })());
+});
+self.addEventListener('fetch',event=>{
+  const req=event.request,url=new URL(req.url);
+  if(req.method!=='GET'||url.origin!==location.origin)return;
+  if(req.mode==='navigate'){
+    event.respondWith((async()=>{
+      const cache=await caches.open(CACHE);
+      try{
+        const response=await fetch(req,{cache:'no-store'});
+        if(response.ok){await cache.put(new URL('./index.html',self.registration.scope),response.clone());return response;}
+      }catch{}
+      return await cache.match(new URL('./index.html',self.registration.scope))||await cache.match(new URL('./',self.registration.scope))||Response.error();
+    })());return;
+  }
+  event.respondWith(caches.match(req).then(cached=>cached||fetch(req)));
+});
