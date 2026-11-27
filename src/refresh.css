@@ -18,3 +18,18 @@ button,a,input,select,textarea{transition:background-color .18s var(--ease),colo
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 .py,.pinyin{font-family:"HSK UKai","HSK WenKai"}.pinyin .vn{font-family:"HSK Be Vietnam Pro","HSK UKai","HSK WenKai"}.quote-card .py{font-size:14px}
+
+/* A readable type scale and inline choices that never need a carousel. */
+body{font-size:16px;line-height:1.7}h1{font-size:clamp(28px,2.8vw,36px)}h2{font-size:clamp(22px,2vw,26px);line-height:1.4}h3{font-size:18px;line-height:1.5}
+.tiny,.foot,.pager,.activity-note,.badge p,.badges-card>p,.account-helper,.account-meta,.method-grid p{font-size:14px;line-height:1.65}
+.label,.top .label,.choice-label{font-size:12px;line-height:1.5}.wordrow .vn{font-size:14px;line-height:1.6;white-space:normal;overflow-wrap:anywhere}.wordrow .py{font-size:15px;line-height:1.6}.wordrow .hanzi{font-size:28px}
+.pinyin{font-size:clamp(22px,2vw,26px);line-height:1.55}.meaning{font-size:clamp(18px,1.6vw,21px);line-height:1.65}.example .cn{font-size:clamp(22px,1.8vw,25px);line-height:1.75}.example .py{font-size:17px;line-height:1.65}.example small,.charbox p{font-size:14px}.quote-card .py{font-size:17px}.badge strong{font-size:14px}.tip-rule>summary{font-size:16px}
+.tabs{flex-wrap:wrap;overflow:visible;gap:6px}.tabs button{white-space:normal;flex:0 1 auto;min-width:0;font-size:14px;line-height:1.5}.toolbar{flex-wrap:wrap;align-items:flex-end;min-width:0}.toolbar>*{max-width:100%;min-width:0}
+.choice-field{display:flex;flex-direction:column;gap:7px;flex:1 1 100%;min-width:0;max-width:100%}.choice-label{color:var(--muted);font-weight:600;letter-spacing:.025em}.choice-buttons{display:flex;flex-wrap:wrap;gap:7px;min-width:0;max-width:100%}
+.choice-buttons button{min-height:42px;max-width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:14px;line-height:1.5;white-space:normal;overflow-wrap:anywhere;text-align:center;box-shadow:none}
+.choice-buttons button[aria-pressed=true]{background:var(--mint);border-color:var(--green);color:var(--ink);box-shadow:inset 0 0 0 1px var(--green);font-weight:600}.choice-buttons button:disabled{opacity:.55}.goal-card .choice-field{flex:none;margin:0 0 4px}.goal-card .choice-label{display:none}.goal-card .choice-buttons button{flex:1;padding-inline:8px}
+.settings-row{align-items:flex-start;flex-direction:column;gap:12px;padding:18px 0}.settings-row>span{font-weight:600}.settings-row .choice-field{width:100%;flex:none}.settings-row .choice-label{display:none}
+.toolbar .choice-field[data-control=suppgroup]{flex-basis:100%}.toolbar input[type=search]{min-height:46px;flex:1 1 100%}.choice-field[data-control=testlevel]{flex-basis:100%}.choice-field[data-control=testlevel] .choice-buttons button:last-child{flex-basis:auto}
+@media(min-width:700px){.toolbar input[type=search]{flex:1 1 260px}.toolbar .choice-field[data-control=statusfilter],.toolbar .choice-field[data-control=suppstatus]{flex:1 1 420px}.sidebar .nav button{font-size:15px}.choice-buttons button{padding:8px 14px}.settings-row .choice-buttons{gap:10px}}
+@media(max-width:399px){.choice-buttons{gap:6px}.choice-buttons button{padding:8px 10px}.tabs{padding:10px}.tabs button{flex:1 1 auto;padding:9px 10px}.account-dialog{font-size:15px}}
+.goal-card .choice-label{display:block}.sidebar .logo .appmark{background:transparent;padding:0;width:40px;height:40px;line-height:1;display:flex;align-items:center;justify-content:center}.appmark img{display:block;width:40px;height:40px;object-fit:contain}
