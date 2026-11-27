@@ -2,6 +2,8 @@
 (()=>{
  const names={levelquick:'Cấp độ HSK',statusfilter:'Trạng thái',reviewmode:'Bộ thẻ ôn tập',testlevel:'Cấp độ kiểm tra',suppgroup:'Nhóm nội dung',suppstatus:'Trạng thái',appearance:'Giao diện', 'daily-goal':'Mục tiêu mỗi ngày'};
  let pending=false;
+ const wide=matchMedia('(min-width:700px)'),filters=document.getElementById('study-filters');
+ if(filters){filters.open=wide.matches;wide.addEventListener('change',()=>{filters.open=wide.matches})}
  function refresh(){
   pending=false;
   document.querySelectorAll('select').forEach(select=>{
@@ -29,6 +31,8 @@
     if(button.disabled!==disabled)button.disabled=disabled;
    });
   });
+  const summary=document.getElementById('study-filter-summary'),level=document.getElementById('levelquick'),status=document.getElementById('statusfilter');
+  if(summary&&level&&status){const text=(level.value==='0'?'Tất cả HSK':'HSK '+level.value)+' · '+({all:'Tất cả',new:'Chưa nhớ',learned:'Đã nhớ',favorite:'Đánh dấu',due:'Đến hạn'}[status.value]||'Tất cả');if(summary.textContent!==text)summary.textContent=text}
  }
  function schedule(){if(!pending){pending=true;requestAnimationFrame(refresh)}}
  new MutationObserver(changes=>{if(changes.some(c=>!c.target.closest?.('.choice-buttons')))schedule()}).observe(document.body,{childList:true,subtree:true});
