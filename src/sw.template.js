@@ -1,5 +1,6 @@
 const CACHE='luyentuvung-hsk1to6-__VERSION__';
 const CORE=__CORE__;
+const LESSON_CACHE='hsk-studio-lesson-packs-v1';
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(CORE)).then(()=>self.skipWaiting()));
 });
@@ -24,12 +25,22 @@ self.addEventListener('fetch',event=>{
   if(req.mode==='navigate'){
     event.respondWith((async()=>{
       const cache=await caches.open(CACHE);
-      try{
-        const response=await fetch(req,{cache:'no-store'});
-        if(response.ok){await cache.put(new URL('./index.html',self.registration.scope),response.clone());return response;}
-      }catch{}
-      return await cache.match(new URL('./index.html',self.registration.scope))||await cache.match(new URL('./',self.registration.scope))||Response.error();
+      const shell=await cache.match(new URL('./index.html',self.registration.scope));
+      return shell||fetch(req);
     })());return;
   }
-  event.respondWith(caches.match(req).then(cached=>cached||fetch(req)));
+  const relative=url.href.slice(self.registration.scope.length);
+  const lessonAsset=url.href.startsWith(self.registration.scope)&&
+    /^(?:assets\/(?:examples|strokes)-[a-f0-9]+\.json|fonts\/[^/]+-extended-[a-f0-9]+\.woff2)$/.test(relative);
+  let saved=Promise.resolve();
+  const response=(async()=>{
+    const cache=await caches.open(lessonAsset?LESSON_CACHE:CACHE);
+    const cached=await cache.match(req);
+    if(cached)return cached;
+    const response=await fetch(req);
+    if(lessonAsset&&response.ok)saved=cache.put(req,response.clone()).catch(()=>{});
+    return response;
+  })();
+  event.respondWith(response);
+  if(lessonAsset)event.waitUntil(response.then(()=>saved,()=>{}));
 });

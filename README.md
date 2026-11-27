@@ -6,6 +6,6 @@
 
 Đưa toàn bộ **nội dung** `dist/` lên CDN hoặc shared hosting có HTTPS. Không cần Node hay backend. Hỗ trợ đường dẫn con như GitHub Pages. Chạy thử bằng `python -m http.server 8080 --directory dist`. Mở qua HTTP/HTTPS để dùng PWA.
 
-Bản PWA lưu nội dung và nét viết sau lần tải trực tuyến đầu tiên. Giọng Mandarin phụ thuộc thiết bị, có thể cần mạng. Tiến độ lưu trên thiết bị; đăng nhập Google hoặc email để đồng bộ riêng theo tài khoản. Nút cài hỗ trợ lời mời cài đặt hoặc hướng dẫn theo trình duyệt.
+PWA lưu phần học cơ bản sau lần tải đầu. Trong Thiết lập, chọn Tải trọn bộ để lưu thêm toàn bộ ví dụ, nét viết và font mở rộng. Giọng Mandarin phụ thuộc thiết bị, có thể cần mạng. Tiến độ lưu trên thiết bị; đăng nhập Google hoặc email để đồng bộ riêng theo tài khoản. Nút cài hỗ trợ lời mời cài đặt hoặc hướng dẫn theo trình duyệt.
 
 Ví dụ dịch tự động và được rà soát theo mẫu, chưa phải toàn bộ nội dung đã được giáo viên kiểm duyệt. Giấy phép và ghi công trong `dist/attribution.json`.
