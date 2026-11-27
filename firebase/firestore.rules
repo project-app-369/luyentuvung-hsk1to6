@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedOwner(uid) { return request.auth != null && request.auth.uid == uid; }
+    function stamp(field) {
+      return field is map && field.keys().hasOnly(['value', 'ts', 'device'])
+        && field.keys().hasAll(['value', 'ts', 'device'])
+        && field.ts is int && field.ts >= 0
+        && field.device is string && field.device.matches('^[a-zA-Z0-9-]{1,80}$');
+    }
+    function boolField(f, name) { return !(name in f) || (stamp(f[name]) && f[name].value is bool); }
+    function textField(f, name, limit) { return !(name in f) || (stamp(f[name]) && f[name].value is string && f[name].value.size() <= limit); }
+    function numberField(f, name, low, high) { return !(name in f) || (stamp(f[name]) && f[name].value is number && f[name].value >= low && f[name].value <= high); }
+    function wordFields(f) {
+      return f.keys().hasOnly(['learned', 'favorite', 'notes', 'stage', 'due', 'write'])
+        && boolField(f, 'learned') && boolField(f, 'favorite') && boolField(f, 'write')
+        && textField(f, 'notes', 10000) && numberField(f, 'stage', 0, 5) && numberField(f, 'due', 0, 9007199254740991);
+    }
+    function supportFields(f) {
+      return f.keys().hasOnly(['learned', 'favorite', 'notes'])
+        && boolField(f, 'learned') && boolField(f, 'favorite') && textField(f, 'notes', 10000);
+    }
+    function prefsFields(f) {
+      return f.keys().hasOnly(['goal', 'last'])
+        && (!('goal' in f) || (stamp(f.goal) && f.goal.value in [5, 10, 20]))
+        && textField(f, 'last', 100);
+    }
+    function activityFields(f) {
+      return f.keys().hasOnly(['ids']) && f.keys().hasAll(['ids']) && stamp(f.ids)
+        && f.ids.value is list && f.ids.value.size() <= 10000;
+    }
+    function attemptFields(f, key) {
+      return f.keys().hasOnly(['entry']) && f.keys().hasAll(['entry']) && stamp(f.entry)
+        && (f.entry.value == null || (
+          f.entry.value is map && f.entry.value.keys().hasOnly(['id', 'level', 'score', 'at', 'answers'])
+          && f.entry.value.id == key && f.entry.value.level is int && f.entry.value.level >= 0 && f.entry.value.level <= 6
+          && f.entry.value.score is number && f.entry.value.score >= 0 && f.entry.value.score <= 100
+          && f.entry.value.at is string && f.entry.value.at.size() <= 60
+          && f.entry.value.answers is list && f.entry.value.answers.size() <= 100
+        ));
+    }
+    function validItem(id) {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['kind', 'key', 'fields', 'updatedAt'])
+        && d.keys().hasAll(['kind', 'key', 'fields', 'updatedAt'])
+        && d.key is string && d.key.size() <= 150 && d.fields is map && d.fields.size() > 0
+        && d.updatedAt == request.time
+        && ((d.kind == 'word' && id == 'w:' + d.key && d.key.matches('^h[1-6]-r[0-9]+$') && wordFields(d.fields))
+          || (d.kind == 'support' && id == 's:' + d.key && supportFields(d.fields))
+          || (d.kind == 'prefs' && id == 'p:settings' && d.key == 'settings' && prefsFields(d.fields))
+          || (d.kind == 'activity' && id == 'a:' + d.key && d.key.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') && activityFields(d.fields))
+          || (d.kind == 'attempt' && id == 't:' + d.key && attemptFields(d.fields, d.key)));
+    }
+    match /users/{uid}/courses/{courseId}/items/{itemId} {
+      allow read: if signedOwner(uid) && courseId == 'hsk-studio-v1-946df900';
+      allow create, update: if signedOwner(uid) && courseId == 'hsk-studio-v1-946df900' && validItem(itemId);
+      allow delete: if false;
+    }
+    match /{document=**} { allow read, write: if false; }
+  }
+}
