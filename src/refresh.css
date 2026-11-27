@@ -39,6 +39,16 @@ body{font-size:16px;line-height:1.7}h1{font-size:clamp(28px,2.8vw,36px)}h2{font-
 .offline-settings{margin-block:16px}.offline-settings p{margin:8px 0}.offline-settings p:empty{display:none}.offline-settings button,.lesson-status button,.example button{min-height:44px;min-width:44px}
 summary:focus-visible{outline:3px solid var(--green);outline-offset:2px;border-radius:6px}
 .account-button[data-sync=syncing]::after,.account-button[data-sync=connecting]::after{animation:none}
+.library-back{margin-bottom:16px;min-height:44px}
+.stroke-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+.stroke-card,.stroke-practice,.stroke-rules details{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.stroke-card{display:flex;flex-direction:column;gap:8px}.stroke-card h2{font-size:19px}.stroke-card p{font-size:15px}
+.stroke-diagram{width:100%;height:104px;background:var(--surface2);border-radius:10px}
+.stroke-guide{fill:none;stroke:var(--ink);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.stroke-gridline{fill:none;stroke:var(--line);stroke-width:1}
+.stroke-card button{margin-top:auto;align-self:flex-start}.stroke-card button,.stroke-rules button,.stroke-practice button{min-height:44px}
+.stroke-rules,.stroke-practice{margin-top:24px}.stroke-rules details{padding:0}.stroke-rules summary{padding:12px 14px;min-height:44px}.stroke-rules details>p,.stroke-rules details>button{margin:0 14px 12px}
+.stroke-practice{scroll-margin-top:80px}#basic-stroke-writer{width:200px;height:200px;touch-action:none}
 @media(hover:none){.dash-levels button:hover,.library-card:hover,.sidebar .nav button:hover{transform:none}}
 @media(min-width:700px){.study-filters{background:transparent;border:0}.study-filters>summary{display:none}.filter-choices{border:0;padding:0;gap:12px}.study-toolbar input[type=search]{max-width:600px;margin-bottom:14px}}
 @media(max-width:699px){
